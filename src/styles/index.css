@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Your custom CSS here */
+
+@import url('https://fonts.googleapis.com/css?family=Oleo+Script');
+
+.font-oleo{
+  font-family: 'Oleo Script', cursive;
+}
+
+.w-40{
+width: 40px;
+ }
+
+.w-80{
+  width:80px;
+}
+ 
+.h-80{
+  height: 80px;
+}
+
+.object-fit{
+  object-fit: cover;
+}
+
+.transform-translate-center{
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (min-width: 992px){
+  .lg\:logo-transform-translate{
+    left: 50%;
+    transform: translateX(-50%);
+    }
+}
+
+.hide input[type=file]{
+  display:none;
+  }
+  
+input[type="checkbox"]:checked + label{
+  background-color: #ffd0d6;
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1800px;
+  }
+}
+
+.rounded-50{
+  border-radius: 50%;
+}
+
+.option-highlight{
+  @apply bg-teal rounded-50 p-2;
+}
+
+.button-teal{
+  @apply bg-teal text-white py-1 px-4;
+}
+
+/* FORM STYLING */
+.dot, .dot-move{
+  @apply rounded-50
+}
+
+.dot{
+  height:14px;
+  width:14px;
+  margin-top: -3px;
+  transition: .3s all ease;
+  transform: translate(-14.3%, -14.3%);
+  @apply absolute rounded-50 border-blue; 
+}
+
+#dot-two{
+  margin-left:14.3%;
+}
+
+#dot-three{
+  margin-left:28.6%;
+}
+
+#dot-four{
+  margin-left:42.9%;
+}
+
+#dot-five{
+  margin-left:57.3%;
+}
+
+#dot-six{
+  margin-left:71.6%;
+}
+
+#dot-seven{
+  margin-left:85.9%;
+}
+
+#dot-eight{
+  margin-left:99%;
+}
+
+/* Macros */
+.macro-result{
+  @apply rounded-50 border bg-white w-80 h-80 relative mr-2;
+}
+
+.macro-text{
+  @apply absolute transform-translate-center text-2xl text-center;
+}
+
+.macro-result{
+  @apply text-center text-sm mt-2
+}
+
+/* Radio Input - Macro calc form */
+.gender,
+.goal{
+    padding:30px;
+    transition: all .2s ease-in-out; 
+}
+
+.gender input:checked + img,
+.goal input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+  transform:scale(1.2);
+}
+
+.transform-120:hover{
+  transform: scale(1.2);
+  cursor:pointer;
+}
