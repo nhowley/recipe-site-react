@@ -6,7 +6,8 @@ import { Redirect } from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Link } from 'react-router-dom'
-import ShowResults from './showResults'
+
+
 
 const ExerciseOPTIONS= [
   {
@@ -43,7 +44,6 @@ class Form extends Component {
     showQuestionSix: false,
     showQuestionSeven: false,
     showQuestionEight: false,
-    name:'',
     age:'',
     gender:'',
     weight:'',
@@ -63,13 +63,13 @@ class Form extends Component {
     fatCalories:'',
     fatGrams:'',
     carbsCalories:'',
-    carbsGrams:'',
-    user: ''
+    carbsGrams:''
   }
   handleClickForm = (e) =>{
-    e.preventDefault();
-     console.log(this.state);
+    
+    this.props.addMacros(this.state);
   }
+  
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -113,6 +113,7 @@ class Form extends Component {
       showQuestionSeven: false,
       showQuestionEight: false
      });
+     this.convertWeight();
   }
   showQuestionFour = (e) =>{
     e.preventDefault();
@@ -126,6 +127,7 @@ class Form extends Component {
       showQuestionSeven: false,
       showQuestionEight: false
      });
+     
   }
   showQuestionFive = (e) =>{
     e.preventDefault();
@@ -139,7 +141,8 @@ class Form extends Component {
       showQuestionSeven: false,
       showQuestionEight: false
      });
-     this.convertWeight();
+     this.calculateLBM();
+      this.calculateBMR();
   }
   showQuestionSix = (e) =>{
     e.preventDefault();
@@ -153,6 +156,9 @@ class Form extends Component {
       showQuestionSeven: false,
       showQuestionEight: false
      });
+     this.calculateTDEE();
+     this.calculateFat();
+     this.calculateProtein();
   }
   showQuestionSeven = (e) =>{
     e.preventDefault();
@@ -166,29 +172,8 @@ class Form extends Component {
       showQuestionSeven: true,
       showQuestionEight: false
      });
-     this.calculateLBM();
-      this.calculateBMR();
-      
-  }
-  showQuestionEight = (e) =>{
-    e.preventDefault();
-    this.setState({ 
-      showQuestionOne: false,      
-      showQuestionTwo: false,
-      showQuestionThree: false,
-      showQuestionFour: false,
-      showQuestionFive: false,
-      showQuestionSix: false,
-      showQuestionSeven: false,
-      showQuestionEight: true
-     });
-      this.calculateTDEE();
-      this.calculateFat();
-      this.calculateProtein();
-      this.chooseGoal();
-      this.calculateCarbs();
-      this.props.addMacros(this.state);
-      
+     this.chooseGoal();
+     this.calculateCarbs();
   }
   createDropdownSelect= option => (
     <DropdownSelect
@@ -211,7 +196,7 @@ class Form extends Component {
   // Calculate Lean Body Mass
   calculateLBM = (e) => {
     let LBMPercent= Number(100 - this.state.bodyFat)
-    let LBM = parseFloat((LBMPercent / 100) * this.state.weight).toFixed(1);
+    let LBM = parseFloat((LBMPercent / 100) * this.state.weightKilos).toFixed(1);
     this.setState({ 
       LBMPercent: LBMPercent,
       LBM: LBM
@@ -261,9 +246,9 @@ class Form extends Component {
   //Goal Calories
   chooseGoal = (e) =>{
     let goalCalories;
-    if (this.state.goal === "loseFat"){
+    if (this.state.goal === "Burn Fat"){
       goalCalories = Math.floor(this.state.TDEE * 0.8);
-    } else if (this.state.goal === "buildMuscle") {
+    } else if (this.state.goal === "Build Muscle") {
       goalCalories = Math.floor(this.state.TDEE * 1.1);
     }
     this.setState({ 
@@ -275,9 +260,9 @@ class Form extends Component {
   calculateProtein = (e) => {
     let proteinGrams;
     let proteinCalories;
-    if (this.state.goal === "loseFat"){
+    if (this.state.goal === "Burn Fat"){
       proteinGrams = Math.round(1.2 * (this.state.weightPounds));
-    } else if (this.state.goal === "buildMuscle"){
+    } else if (this.state.goal === "Build Muscle"){
      proteinGrams = Math.round(this.state.weightPounds);
     };
     proteinCalories = proteinGrams * 4;
@@ -290,9 +275,9 @@ class Form extends Component {
   calculateFat = (e) =>{
     let fatGrams;
     let fatCalories;
-    if (this.state.goal === "loseFat"){
+    if (this.state.goal === "Burn Fat"){
     fatGrams = Math.round (0.2 * (this.state.weightPounds));
-  } else if (this.state.goal === "buildMuscle"){
+  } else if (this.state.goal === "Build Muscle"){
     fatGrams = Math.round(0.3 * (this.state.weightPounds));
   };
     fatCalories = fatGrams * 9;
@@ -312,8 +297,7 @@ class Form extends Component {
   };
 
   render() {
-    console.log(this.props.macros)
-    const { macros, auth } = this.props
+    const { auth } = this.props
     if(!auth.uid) return <Redirect to = '/signup' />
     return (
       <div className={this.state.showForm ? 'block' : 'hidden'}>
@@ -330,57 +314,32 @@ class Form extends Component {
           <div className={this.state.showQuestionFive ? 'bg-blue dot ml-2 border question-five' : 'dot bg-white ml-2 border question-five'} onClick={this.showQuestionFive} id="dot-five"></div>
           <div className={this.state.showQuestionSix ? 'bg-blue dot ml-2 border question-six' : 'dot bg-white ml-2 border question-six'} onClick={this.showQuestionSix} id="dot-six"></div>
           <div className={this.state.showQuestionSeven ? 'bg-blue dot ml-2 border question-seven' : 'dot bg-white ml-2 border question-seven'} onClick={this.showQuestionSeven} id="dot-seven"></div>
-          <div className={this.state.showQuestionEight ? 'bg-blue dot ml-2 border question-eight' : 'dot bg-white ml-2 border question-eight'} onClick={this.showQuestionEight} id="dot-eight"></div>
         </div>
       </div>
-      {/* Question 1 */}
-      <div className={this.state.showQuestionOne ? 'block' : 'hidden'}>
+     {/* Question 1 */}
+     <div className={this.state.showQuestionOne ? 'block' : 'hidden'}>
         <form className="slider-form slider-one">
-          <div className="flex justify-center flex-col">
-            <h2 className="text-black mb-3 text-3xl text-center">Hello, what is your name?</h2>
+          <div className="flex flex-col">
+              <h2 className="text-black mb-3 text-3xl text-center">What is your gender?</h2>
+              <div className="mx-auto flex mt-4" id="choose-gender">
+                <label className={this.state.hover || this.state.gender==="male" ? "gender transform-120" : "gender"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
+                  <input id="male" type="radio" name="gender" className="opacity-0 fixed" value="male" onChange={this.handleChange}/>
+                  <img src="/img/male.png" width="150px" id="male" className="image" alt="Male Icon"/>
+                </label>
+                <label className={this.state.hover || this.state.gender==="female" ? "gender transform-120" : "gender"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
+                  <input id="female" type="radio" name="gender" className="opacity-0 fixed" value="female" onChange={this.handleChange}/>
+                  <img src="img/female.png" width="150px" id="female" className="image" alt="Female Icon"/>
+                </label>
+            </div>
             <div className="mx-auto mt-4">
-              <input type="text" className="name border py-1 px-3 mr-3" placeholder="John" id="first-name" name="name" onChange={this.handleChange} required />
-              <button className="first next button-teal hover:bg-green" onClick={this.showQuestionTwo}>Next Step</button>
+              <button className="first next button-teal hover:bg-green mt-4" onClick={this.showQuestionTwo}>Next Step</button>
             </div>
           </div>
         </form>
       </div>
-      {/* Question 2 */}
-      <div className={this.state.showQuestionTwo ? 'block' : 'hidden'}>
-        <form className="slider-form slider-two">
-          <div className="flex justify-center flex-col">
-            <h2 className="text-black mb-3 text-3xl text-center">Nice to meet you {this.state.name}, please tell us your age.</h2>
-            <div className="mx-auto mt-4">
-              <input type="text" className="name border py-1 px-3 mr-3" placeholder="54" id="age" name="age" onChange={this.handleChange} required />
-              <button className="second next button-teal hover:bg-green" onClick={this.showQuestionThree}>Next Step</button>
-            </div>
-          </div>
-        </form>
-      </div>
-     {/* Question 3 */}
-     <div className={this.state.showQuestionThree ? 'block' : 'hidden'}>
-      <form className="slider-form slider-three">
-        <div className="flex flex-col">
-            <h2 className="text-black mb-3 text-3xl text-center">What is your gender?</h2>
-            <div className="mx-auto flex mt-4" id="choose-gender">
-              <label className={this.state.hover || this.state.gender==="male" ? "gender transform-120" : "gender"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-                <input id="male" type="radio" name="gender" className="opacity-0 fixed" value="male" onChange={this.handleChange}/>
-                <img src="/img/male.png" width="150px" id="male" className="image" alt="Male Icon"/>
-              </label>
-              <label className={this.state.hover || this.state.gender==="female" ? "gender transform-120" : "gender"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-                <input id="female" type="radio" name="gender" className="opacity-0 fixed" value="female" onChange={this.handleChange}/>
-                <img src="img/female.png" width="150px" id="female" className="image" alt="Female Icon"/>
-              </label>
-          </div>
-          <div className="mx-auto mt-4">
-            <button className="third next button-teal hover:bg-green mt-4" onClick={this.showQuestionFour}>Next Step</button>
-          </div>
-        </div>
-      </form>
-      </div>
-       {/* Question 4 */}
-       <div className={this.state.showQuestionFour ? 'block' : 'hidden'}>
-          <form className="slider-form slider-four">
+       {/* Question 2 */}
+       <div className={this.state.showQuestionTwo ? 'block' : 'hidden'}>
+          <form className="slider-form slider-two">
             <div className="flex flex-col">
               <h2 className="text-black mb-3 text-3xl text-center">How much do you weigh?</h2>
               <div className="mx-auto flex mt-4" id="choose-weight">
@@ -393,35 +352,35 @@ class Form extends Component {
                 </select>
               </div>
               <div className="mx-auto mt-4">
-                <button className="fourth next button-teal hover:bg-green mt-4" onClick={this.showQuestionFive}>Next Step</button>
+                <button className="second next button-teal hover:bg-green mt-4" onClick={this.showQuestionThree}>Next Step</button>
               </div>
             </div>
           </form>
         </div>
-       {/* Question 5 */}
-       <div className={this.state.showQuestionFive ? 'block' : 'hidden'}>
-      <form className="slider-form slider-five">
+       {/* Question 3 */}
+       <div className={this.state.showQuestionThree ? 'block' : 'hidden'}>
+      <form className="slider-form slider-three">
         <div className="flex flex-col">
           <h2 className="text-black mb-3 text-3xl text-center">What is your main aim?</h2>
           <div className="mx-auto flex mt-4" id="choose-goal">
             <label className={this.state.hover ? "goal transform-120" : "goal"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-              <input type="radio" name="goal" className="opacity-0 fixed" value="loseFat" onChange={this.handleChange}/>
-              <img src="/img/flame.png" width="150px" id= "fat-burn" className="image" />
+              <input type="radio" name="goal" className="opacity-0 fixed" value="Burn Fat" onChange={this.handleChange}/>
+              <img src="/img/flame.png" width="150px" id= "fat-burn" className="image" alt="Burn fat"/>
             </label>
             <label className={this.state.hover ? "goal transform-120" : "goal"}  onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-              <input type="radio" name="goal" className="opacity-0 fixed" value="buildMuscle" onChange={this.handleChange}/>
-              <img src="/img/dumbbell.png" width="150px" id = "muscle-build" className="image" />
+              <input type="radio" name="goal" className="opacity-0 fixed" value="Build Muscle" onChange={this.handleChange}/>
+              <img src="/img/dumbbell.png" width="150px" id = "muscle-build" className="image" alt="Gain muscle"/>
             </label>
           </div>
           <div className="mx-auto mt-4">
-          <button className="fifth next button-teal hover:bg-green mt-6" onClick={this.showQuestionSix}>Next Step</button>
+          <button className="three next button-teal hover:bg-green mt-6" onClick={this.showQuestionFour}>Next Step</button>
           </div>
           </div>
         </form>
         </div>
-    {/* Question 6 */}
-    <div className={this.state.showQuestionSix ? 'block' : 'hidden'}>
-        <form className="slider-form slider-six">
+    {/* Question 4 */}
+    <div className={this.state.showQuestionFour ? 'block' : 'hidden'}>
+        <form className="slider-form slider-four">
           <div className="flex flex-col">
             <h2 className="text-black mb-3 text-3xl text-center">What is your body fat percentage?</h2>
             <div className="mx-auto flex flex-col mt-4">
@@ -431,37 +390,70 @@ class Form extends Component {
               <p className="mt-8"><a href ="body-fat-calculators.html" target="_blank">I don't know my body fat percentage</a></p>
             </div>
             <div className="mx-auto mt-4">
-              <button className="sixth next button-teal hover:bg-green mt-4" onClick={this.showQuestionSeven}>Next Step</button>
+              <button className="four next button-teal hover:bg-green mt-4" onClick={this.showQuestionFive}>Next Step</button>
             </div>
           </div>
         </form>
         </div>
-        {/* Question 7 */}
-        <div className={this.state.showQuestionSeven ? 'block' : 'hidden'}>
-        <form className="slider-form slider-seven">
+        {/* Question 5 */}
+        <div className={this.state.showQuestionFive ? 'block' : 'hidden'}>
+        <form className="slider-form slider-five">
           <div className="flex flex-col">
-            <h2 className="text-black mb-3 text-3xl text-center">On average, how much exercise do you do each week?</h2>
-            <div className="mx-auto flex mt-4">
-              <select id="exercise" name="exercise" onChange={this.handleChange}>
+            <h2 className="text-black mb-3 text-3xl text-center p-2">On average, how much exercise do you do each week?</h2>
+            <div className="mx-auto flex flex-col mt-4">
+              {/* <select id="exercise" name="exercise" onChange={this.handleChange}>
               {this.createDropdownSelectOptions()}
-                </select>
-              <div className="mx-auto mt-4">
-                <button className="seventh next button-teal hover:bg-green" onClick={this.showQuestionEight}>Next Step</button>
+                </select> */}
+                <div className="px-6">
+                  <div className="mb-2">
+                    <input type="radio" id="Sedentary" name="exercise" value="Sedentary" className="mr-2" />
+                    <label for="Sedentary">Sedentary (little or no exercise)</label>
+                  </div>
+                  <div className="mb-2">
+                    <input type="radio" id="Light Activity" name="exercise" value="Light Activity" className="mr-2"/>
+                    <label for="Light Activity">Light activity (light exercise/sports 1 to 3 days per week)</label>
+                  </div>
+                  <div className="mb-2">
+                    <input type="radio" id="Moderate Activity" name="exercise" value="Moderate Activity" className="mr-2"/>
+                    <label for="Moderate Activity">Moderate activity (moderate exercise/sports 3 to 5 days per week)</label>
+                  </div>
+                  <div className="mb-2">
+                    <input type="radio" id="Very active" name="exercise" value="Very active" className="mr-2"/>
+                    <label for="Very active">Very active (hard exercise/sports 6 to 7 days per week)</label>
+                  </div>
+                  <div className="mb-2">
+                    <input type="radio" id="Extra Active" name="exercise" value="Extra Active" className="mr-2"/>
+                    <label for="Extra Active">Extra active (very hard exercise/sports 6 to 7 days per week and physical job)</label>
+                  </div>
+                </div>
+              
+              <div className="mx-auto mt-8 lg:mt-4 p-2">
+                <button className="fifth next button-teal hover:bg-green" onClick={this.showQuestionSix}>Next Step</button>
               </div>
             </div>
           </div>
         </form>
         </div>
-        {/* Question 8 */}
-        <div className={this.state.showQuestionEight ? 'block' : 'hidden'}>
-        <form className="slider-form slider-eight">
+        {/* Question 6 */}
+        <div className={this.state.showQuestionSix ? 'block' : 'hidden'}>
+        <form className="slider-form slider-six">
+          <div className="flex justify-center flex-col">
+            <h2 className="text-black mb-3 text-3xl text-center">And finally, please tell us your age.</h2>
+            <div className="mx-auto mt-4">
+              <input type="text" className="name border py-1 px-3 mr-3" placeholder="54" id="age" name="age" onChange={this.handleChange} required />
+              <button className="sixth next button-teal hover:bg-green" onClick={this.showQuestionSeven}>Next Step</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {/* Question 7 */}
+        <div className={this.state.showQuestionSeven ? 'block' : 'hidden'}>
+        <form className="slider-form slider-seven">
           <div className="flex flex-col">
             <h2 className="text-black mb-3 text-3xl text-center">Thank you for your input!</h2>
-            <p className="text-center mt-4">Your calculations have been made. Click below to see your stats.</p>
             <div className="mx-auto mt-8">
-                <button className="eighth next button-teal hover:bg-green" onClick={this.handleClickForm}>Calculate results</button>
-              <Link to={"/macros/" + this.state.user}>
-                <button className="eighth next button-teal hover:bg-green">See my results</button>
+              <Link to={"/macros/" + auth.uid}>
+                <button className="seventh next button-teal hover:bg-green" onClick={this.handleClickForm}>See my results</button>
               </Link>
             </div>
           </div>
@@ -481,9 +473,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
-    macros: state.firestore.ordered.macros,
     auth: state.firebase.auth,
     authError: state.auth.authError
   }

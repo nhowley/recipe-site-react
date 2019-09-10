@@ -14,7 +14,7 @@ const Option = ({text, image, alt, link}) => {
   }
   console.log(`text: ${text} image: ${image}`)
   return (
-        <div className="md:w-1/2 lg:w-1/5 p-10 lg:p-6 2xl:p-12">
+        <div className="md:w-1/2 lg:w-1/5 p-10 lg:p-6 xxl:p-12">
           <div className={state.hover ? "option-highlight" : "option"}  onMouseEnter={ () => updateState() } onMouseLeave={() => updateState()}>
             <a href={link}><img src={image} alt={alt}/></a>
           </div>

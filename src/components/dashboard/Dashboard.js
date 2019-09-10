@@ -17,7 +17,7 @@ class Dashboard extends Component {
               <p className="mr-4">My recipes</p>
               <p className="mr-4 font-bold">All recipes</p>
               <div>
-                <img src="/img/like.png" width="24px"/>
+                <img src="/img/like.png" width="24px" alt="like"/>
               </div>
             </div>
             <div className="flex w-3/5">
@@ -30,7 +30,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="bg-teal h-10 py-1 px-3 flex justify-center ">
                   <div>
-                    <img src="/img/search-white.png" width="24px" className="mt-1"/>
+                    <img src="/img/search-white.png" width="24px" className="mt-1" alt="search"/>
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@ class Dashboard extends Component {
             <div className="flex w-1/5  justify-end">
               <button className="bg-purple text-white px-3 flex">
                 <p>Add Recipe</p>
-                <img src="/img/add-white.png" width="16px" className="ml-3 mt-1"/>
+                <img src="/img/add-white.png" width="16px" className="ml-3 mt-1" alt="add"/>
               </button>
             </div>
         </div>

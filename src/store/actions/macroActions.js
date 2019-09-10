@@ -1,19 +1,16 @@
 export const addMacros = (macro) =>{
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     // make async call to database
+    const firebase = getFirebase();
     const firestore = getFirestore();
-    firestore.collection('macros').add({
-      ...macro
-    }).then((resp) => {
-      console.log(resp.id) 
-      return firestore.collection('macros').doc(resp.id).set({
+    const user = firebase.auth().currentUser;
+    firestore.collection('users').doc(user.uid).update({
         ...macro,
-        user: resp.id
-      })
-    }).then(()=>{
-      dispatch({type: 'ADD_MACRO', macro});
-    }).catch((err) => {
-      dispatch({type: 'ADD_MACRO_ERROR', err});
-    })
-  }
+        user: user.uid
+      }).then(()=>{
+    dispatch({type: 'ADD_MACRO', macro});
+  }).catch((err) => {
+    dispatch({type: 'ADD_MACRO_ERROR', err});
+  })
+}
 }

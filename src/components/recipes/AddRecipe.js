@@ -52,9 +52,9 @@ class AddRecipe extends Component {
 
     realInput.addEventListener('change', () => {
       const name = realInput.value.split(/\\|\//).pop();
-      const truncated = name.length > 20 
-        ? name.substr(name.length - 20) 
-        : name;
+      // const truncated = name.length > 20 
+      //   ? name.substr(name.length - 20) 
+      //   : name;
       
       fileInfo.textContent = name;
       this.setState({
@@ -104,7 +104,7 @@ class AddRecipe extends Component {
   createDropdownSelectOptions = () => MealOPTIONS.map(this.createDropdownSelect);
 
 render() {
-  const { recipes, auth } = this.props;
+  const { auth } = this.props;
   if(!auth.uid) return <Redirect to = '/signin' />
 return (
 <div className="h-full">

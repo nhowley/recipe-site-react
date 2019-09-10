@@ -2,10 +2,10 @@ import React from 'react'
 import Option from './home/Option'
 import Feature from './home/Feature'
 
-let small = '/img/home_head-visual_MOBILE.jpg';
-const medium = '/img/home_head-visual_cropped_2.jpg';
-const large = '/img/home_head-visual_cropped_2.jpg';
-const xlarge = '/img/home_head-visual_cropped_2.jpg';
+// let small = '/img/home_head-visual_MOBILE.jpg';
+// const medium = '/img/home_head-visual_cropped_2.jpg';
+// const large = '/img/home_head-visual_cropped_2.jpg';
+// const xlarge = '/img/home_head-visual_cropped_2.jpg';
 
 const Home = (props) => {
   return(
@@ -13,15 +13,15 @@ const Home = (props) => {
       {/* Head visual */}
       <section>
         <div className="object-fit relative">
-          <img src="/img/home_head-visual_cropped_2.jpg"/>
+          <img src="/img/home_head-visual_cropped_2.jpg" alt="kitchen surface"/>
           {/* <img src={small} srcSet={`${small} 300w, ${medium} 768w, ${large} 1280w, ${xlarge} 3200w`} alt="Kitchen Surface"/> */}
           <div className="absolute transform-translate-center w-full md:w-4/5 lg:w-2/5 p-4">
-            <h1 className="text-white text-5xl 2xl:text-6xl text-center">Meal plans made easy</h1>
-            <div className="bg-white h-8 2xl:h-12 mt-3 flex justify-between mt-2">
-                <p className="text-gray-400 py-1 2xl:py-3 px-4">Search our recipes</p>
-                <div className="bg-teal h-8 2xl:h-12 w-1/6 relative">
+            <h1 className="text-white text-5xl xxl:text-6xl text-center">Meal plans made easy</h1>
+            <div className="bg-white h-8 xxl:h-12 mt-3 flex justify-between mt-2">
+                <p className="text-gray-400 py-1 xxl:py-3 px-4">Search our recipes</p>
+                <div className="bg-teal h-8 xxl:h-12 w-1/6 relative">
                   <div className="absolute transform-translate-center">
-                    <img src="/img/search-white.png" className="ml-2 w-1/2"/>
+                    <img src="/img/search-white.png" className="ml-2 w-1/2" alt="search"/>
                   </div>
                 </div>
             </div>
@@ -81,7 +81,9 @@ const Home = (props) => {
       {/* Calculate Daily Intake */}
       <section>
         <div className="relative p-20">
-          <button className="bg-purple text-white py-1 px-4 2xl:p-6 absolute transform-translate-center hover:bg-green">Calculate your recommended daily intake</button>
+          <a href="/macros">
+            <button className="bg-purple text-white py-1 px-4 xxl:p-6 xl:text-xl  absolute transform-translate-center hover:bg-green">Calculate your recommended daily intake</button>
+          </a>
         </div>
       </section>
     </div>

@@ -19,7 +19,7 @@ return(
       </button>
     </div>
     <div className="w-full hidden lg:block flex-grow lg:flex lg:items-center lg:w-auto relative flex">
-      <div className="text-sm lg:flex-grow">
+      <div className="text-sm xl:text-lg xxl:text-xl lg:flex-grow">
         <a href="/recipes" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-6 no-underline">
           Recipes
         </a>
@@ -43,7 +43,6 @@ return(
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
     auth: state.firebase.auth
   }
