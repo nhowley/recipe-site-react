@@ -387,7 +387,7 @@ class Form extends Component {
               <label className="weight-input mx-auto">
                 <input type="number" className="name border" placeholder="Body fat %" id="body-fat-input" name="bodyFat" onChange={this.handleChange}/>
               </label>
-              <p className="mt-8"><a href ="body-fat-calculators.html" target="_blank">I don't know my body fat percentage</a></p>
+              <p className="mt-8"><a href ="body-fat-calculators" target="_blank">I don't know my body fat percentage</a></p>
             </div>
             <div className="mx-auto mt-4">
               <button className="four next button-teal hover:bg-green mt-4" onClick={this.showQuestionFive}>Next Step</button>
