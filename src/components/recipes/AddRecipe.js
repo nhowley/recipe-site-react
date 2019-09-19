@@ -31,6 +31,7 @@ class AddRecipe extends Component {
     )
   }
   handleChange = (e) => {
+    this.nl2br();
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -44,7 +45,6 @@ class AddRecipe extends Component {
         [name]: !prevState.checkboxes[name]
       }
     }));
-     
       };
   handleImageUpload = (e) =>{
     const realInput = document.getElementById('photo');
@@ -102,6 +102,13 @@ class AddRecipe extends Component {
   );
 
   createDropdownSelectOptions = () => MealOPTIONS.map(this.createDropdownSelect);
+
+
+   nl2br = (str, replaceMode, isXhtml) => {
+  var breakTag =  '<br />'
+  var replaceStr = (replaceMode) ? '$1'+ breakTag : '$1'+ breakTag +'$2';
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, replaceStr);
+}
 
 render() {
   const { auth } = this.props;
@@ -222,7 +229,7 @@ return (
             {this.createDropdownSelectOptions()}
           </select>
       </div>
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 dietary">
         {this.createCheckboxes()}
       </div>
       <div className="flex items-center justify-center">

@@ -45,7 +45,21 @@ class Dashboard extends Component {
         {/* Recipes and filters */}
         <div className="flex mt-5">
           <div className="lg:w-1/6 h-12">
-            <p className="text-2xl">Filters</p>
+            <p className="text-2xl mb-2">Filter by:</p>
+            <select className="mb-2">
+              <option>Price</option>
+              <option>Under &#163;2</option>
+            </select>
+            <select className="mb-2">
+              <option>Cooking time</option>
+              <option>Under 30 mins</option>
+              <option>Under 1 hour</option>
+            </select>
+            <select >
+              <option>Chef</option>
+              <option>Jamie Oliver</option>
+              <option>Nigella Lawson</option>
+            </select>
           </div>
           <div className="w-full lg:w-5/6 h-12">
             <RecipeList recipes={recipes}/>

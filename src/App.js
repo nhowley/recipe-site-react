@@ -13,6 +13,7 @@ import Results from './components/macros/Results';
 import Profile from './components/account/Profile';
 import MealPlanner from './components/MealPlanner';
 import BodyFatCalc from './components/BodyFatCalc';
+import Shopping from './components/shopping/Shopping';
 
 
 
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/my-account" component={Profile} />
             <Route path="/mealplanner" component={MealPlanner} />
             <Route path="/body-fat-calculators" component={BodyFatCalc} />
+            <Route path="/shopping-list" component={Shopping} />
           </Switch>
           <Footer />
         </div>
