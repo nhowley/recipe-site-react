@@ -90,11 +90,19 @@ npm install
 
 
 ### Create the following pages:
+
 [ ]Account Settings
+
 [ ]Help page
+
 [ ]Terms of Service
+
 [ ]Data Policy
+
 [ ]Privacy Policy
+
 [ ]About Us
+
 [ ]Contact Us
+
 [ ]Blog?
