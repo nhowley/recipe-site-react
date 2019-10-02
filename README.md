@@ -6,17 +6,17 @@ npm install
 ### To do:
 
 /shopping-list:
-[ ]Make text editable
-[ ]Add line through on all text in row
-[ ]Categorize item by department
-[ ]Add option to save list
-[ ]Make print list work
-[ ]Make email list work
-[ ]Add ingredients of a recipe to shopping list
-[ ]Make search query work - add database for this
-[ ]Make bin red or animate on hover
-[ ]Add more departments
-[ ]Automatically choose department and quantity based on option selected from search
+[ ]Make text editable 
+[ ]Add line through on all text in row 
+[ ]Categorize item by department 
+[ ]Add option to save list 
+[ ]Make print list work 
+[ ]Make email list work 
+[ ]Add ingredients of a recipe to shopping list 
+[ ]Make search query work - add database for this 
+[ ]Make bin red or animate on hover 
+[ ]Add more departments 
+[ ]Automatically choose department and quantity based on option selected from search 
 
 /recipes:
 [ ]Find a different way to recall recipes from database
