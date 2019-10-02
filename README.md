@@ -5,7 +5,9 @@ npm install
 
 ### To do:
 
+
 **/shopping-list**
+
 [ ]Make text editable
 
 [ ]Add line through on all text in row 
@@ -28,14 +30,18 @@ npm install
 
 [ ]Automatically choose department and quantity based on option selected from search 
 
+
 **/recipes**
+
 [ ]Find a different way to recall recipes from database
 
 [ ]Make filters work
 
 [ ]Make sure footer is at bottom of page
 
+
 **/meal-planner**
+
 [ ]Create page 
 
 [ ]Add calendar
@@ -46,7 +52,9 @@ npm install
 
 [ ]Offer recommendations to achieve target intake (i.e. swap beef for chicken)
 
+
 **/recipe/id**
+
 [ ]Make Image dynamic
 
 [ ]Format text input so that it separates onto a new line (ingredients, method)
@@ -55,7 +63,9 @@ npm install
 
 [ ]Make icons work (save recipe as favourite, schedule, add to shopping list, share and print)
 
+
 **/add**
+
 [ ]Add line breaks when entering data
 
 [ ]Re-style
@@ -64,14 +74,18 @@ npm install
 
 [ ]Fix issue with image upload not saving image
 
+
 **/my-account**
+
 [ ]Add profile pic
 
 [ ]Make recipe data dynamic
 
 [ ]Make sign out button work
 
+
 **/body-fat-calculators**
+
 [ ]Add logic for the second and third boby fat calculator methods
 
 
